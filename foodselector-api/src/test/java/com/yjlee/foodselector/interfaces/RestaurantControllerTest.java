@@ -1,6 +1,7 @@
 package com.yjlee.foodselector.interfaces;
 
 import com.yjlee.foodselector.domain.RestaurantRepository;
+import com.yjlee.foodselector.domain.RestaurantRepositoryImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class RestaurantControllerTest {
     @Autowired
     private MockMvc mvc;
     // 테스트에 내가 사용할 Repository 선언
-    @SpyBean
+    @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
 
     @Test
