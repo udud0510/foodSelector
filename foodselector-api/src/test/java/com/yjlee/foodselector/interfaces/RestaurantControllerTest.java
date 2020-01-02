@@ -1,5 +1,7 @@
 package com.yjlee.foodselector.interfaces;
 
+import com.yjlee.foodselector.domain.MenuItemRepository;
+import com.yjlee.foodselector.domain.MenuItemRepositoryImpl;
 import com.yjlee.foodselector.domain.RestaurantRepository;
 import com.yjlee.foodselector.domain.RestaurantRepositoryImpl;
 import org.junit.Test;
@@ -24,6 +26,8 @@ public class RestaurantControllerTest {
     // 테스트에 내가 사용할 Repository 선언
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
+    @SpyBean(MenuItemRepositoryImpl.class)
+    private MenuItemRepository MenuItemRepository;
 
     @Test
     public void list() throws Exception {
@@ -41,16 +45,13 @@ public class RestaurantControllerTest {
         mvc.perform(get("/restaurants/1004"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"id\":1004")))
-                .andExpect(content().string(containsString("\"name\":\"Bob zip\"")));;
+                .andExpect(content().string(containsString("\"name\":\"Bob zip\"")))
+                .andExpect(content().string(containsString("Kimchi")));
 
 
         mvc.perform(get("/restaurants/2020"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"id\":2020")))
-                .andExpect(content().string(containsString("\"name\":\"Cyber Food\"")));;
+                .andExpect(content().string(containsString("\"name\":\"Cyber Food\"")));
     }
-
-
-
-
 }
