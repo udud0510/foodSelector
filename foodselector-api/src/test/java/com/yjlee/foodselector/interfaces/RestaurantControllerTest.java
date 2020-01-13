@@ -1,5 +1,6 @@
 package com.yjlee.foodselector.interfaces;
 
+import com.yjlee.foodselector.application.RestaurantService;
 import com.yjlee.foodselector.domain.MenuItemRepository;
 import com.yjlee.foodselector.domain.MenuItemRepositoryImpl;
 import com.yjlee.foodselector.domain.RestaurantRepository;
@@ -24,6 +25,8 @@ public class RestaurantControllerTest {
     @Autowired
     private MockMvc mvc;
     // 테스트에 내가 사용할 Repository 선언
+    @SpyBean(RestaurantService.class)
+    private RestaurantService restaurantService;
     @SpyBean(RestaurantRepositoryImpl.class)
     private RestaurantRepository restaurantRepository;
     @SpyBean(MenuItemRepositoryImpl.class)
@@ -35,8 +38,6 @@ public class RestaurantControllerTest {
         mvc.perform(get("/restaurants")).andExpect(status().isOk())
                 .andExpect(content().string(containsString("\"id\":1004")))
                 .andExpect(content().string(containsString("\"name\":\"Bob zip\"")));
-
-
     }
 
     @Test
@@ -47,7 +48,6 @@ public class RestaurantControllerTest {
                 .andExpect(content().string(containsString("\"id\":1004")))
                 .andExpect(content().string(containsString("\"name\":\"Bob zip\"")))
                 .andExpect(content().string(containsString("Kimchi")));
-
 
         mvc.perform(get("/restaurants/2020"))
                 .andExpect(status().isOk())
