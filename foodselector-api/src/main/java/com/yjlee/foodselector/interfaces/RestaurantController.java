@@ -28,6 +28,10 @@ public class RestaurantController {
 
     @GetMapping("/restaurants/{id}")
     public Restaurant detail(@PathVariable("id") Long id){
+
+        // 기본정보 + 메뉴 정보
+        //Restaurant restaurant = restaurantService.getRestaurantById(id);
+
         Restaurant restaurant = restaurantRepository.findById(id);
 
         List<MenuItem> menuItems = menuItemRepository.findAllByRestaurantId(id);
